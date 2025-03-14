@@ -1,7 +1,4 @@
-function createSitePet(gfx, phrases = [], promotional = false) {
-    if (!gfx) {
-        gfx = 'sprite';
-    }
+function createSitePet(phrases = [], promotional = false) {
     const ANI = {
         IDEL1: 0,
         IDEL2: 1,
