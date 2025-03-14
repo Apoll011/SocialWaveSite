@@ -1,87 +1,95 @@
+// Função principal para criar a mascote virtual no site. Sendo 100% Honesto é 70% Chatgpt.
 function createSitePet(phrases = [], promotional = false) {
+    // Definição dos estados de animação da mascote
     const ANI = {
-        IDEL1: 0,
-        IDEL2: 1,
-        IDEL3: 2,
-        RIGHT: 3,
-        DOWN: 4,
-        LEFT: 5,
-        UP: 6,
-        PET: 7,
-        SLEEP: 8
+        IDEL1: 0,   // Parado (variação 1)
+        IDEL2: 1,   // Parado (variação 2)
+        IDEL3: 2,   // Parado (variação 3)
+        RIGHT: 3,   // A andar para a direita
+        DOWN: 4,    // A andar para baixo
+        LEFT: 5,    // A andar para a esquerda
+        UP: 6,      // A andar para cima
+        PET: 7,     // A receber carinho
+        SLEEP: 8    // A dormir
     };
 
+    // Modos de comportamento da mascote
     const MODES = {
-        RANDOM: 'random',
-        FOLLOW: 'follow',
-        FLEE: 'flee',
-        CURIOUS: 'curious',
-        SLEEPY: 'sleepy',
-        PROMOTIONAL: 'promotional'
+        RANDOM: 'random',         // Modo aleatório (exploração livre)
+        FOLLOW: 'follow',         // Seguir o rato
+        FLEE: 'flee',             // Fugir do rato
+        CURIOUS: 'curious',       // Explorar elementos interativos
+        SLEEPY: 'sleepy',         // Ficar sonolento
+        PROMOTIONAL: 'promotional'// Modo promocional (mostrar frases específicas)
     };
 
+    // Criar o elemento visual da mascote
     var ele = document.createElement("div");
-    ele.style.position = 'fixed';
-    ele.style.width = '64px';
-    ele.style.height = '64px';
-    ele.style.backgroundImage = `url(img/pet1.png)`;
-    ele.style.backgroundRepeat = 'no-repeat';
-    ele.style.backgroundPosition = '0px 0px';
-    ele.style.zIndex = '1000';
-    document.body.appendChild(ele);
+    ele.style.position = 'fixed'; // Ficar fixo na tela
+    ele.style.width = '64px'; // Largura da mascote
+    ele.style.height = '64px'; // Altura da mascote
+    ele.style.backgroundImage = `url(img/pet1.png)`; // Imagem da mascote
+    ele.style.backgroundRepeat = 'no-repeat'; // Não repetir imagem
+    ele.style.backgroundPosition = '0px 0px'; // Posição inicial
+    ele.style.zIndex = '1000'; // Garantir que fica acima de outros elementos
+    document.body.appendChild(ele); // Adicionar ao corpo da página
 
+    // Criar a "bolha de fala" para a mascote
     var speechBubble = document.createElement("div");
     speechBubble.style.position = 'fixed';
-    speechBubble.style.backgroundColor = 'white';
-    speechBubble.style.border = '2px solid black';
-    speechBubble.style.borderRadius = '10px';
-    speechBubble.style.padding = '8px';
-    speechBubble.style.maxWidth = '200px';
-    speechBubble.style.zIndex = '1000';
-    speechBubble.style.display = 'none';
+    speechBubble.style.backgroundColor = 'white'; // Fundo branco
+    speechBubble.style.border = '2px solid black'; // Contorno preto
+    speechBubble.style.borderRadius = '10px'; // Bordas arredondadas
+    speechBubble.style.padding = '8px'; // Espaçamento interno
+    speechBubble.style.maxWidth = '200px'; // Largura máxima da bolha
+    speechBubble.style.zIndex = '1000'; // Sobre outros elementos
+    speechBubble.style.display = 'none'; // Inicialmente escondida
     speechBubble.style.fontSize = '14px';
     speechBubble.style.fontFamily = 'Arial, sans-serif';
-    document.body.appendChild(speechBubble);
+    document.body.appendChild(speechBubble); // Adicionar à página
 
-    const MaxFrame = 8;
-    var anim = 0;
-    var frame = 0;
-    var sleep = 0;
-    // Start the pet at a safer position on screen
-    var x = 64; // Start slightly inside the screen instead of -64
-    var y = Math.floor(Math.floor(window.innerHeight / 2) / 64) * 64;
-    var moving = false;
-    var mouseX = 0;
-    var mouseY = 0;
-    var petCount = 0;
-    var currentMode = promotional ? MODES.PROMOTIONAL : MODES.RANDOM;
-    var modeTimer = 0;
-    var modeChangeCooldown = 0;
-    var navbarHeight = 70; // Estimated navbar height + safety margin
-    var targetElement = null; // Track the current target element in CURIOUS mode
-    var exploreAttempts = 0; // Track how many attempts we've made to explore the current element
+    // Definir variáveis de estado da animação
+    const MaxFrame = 8; // Número máximo de frames de animação
+    var anim = 0; // Estado atual da animação
+    var frame = 0; // Frame atual da animação
+    var sleep = 0; // Contador para o modo de sono
+    var x = 64; // Posição inicial em X (64px para não ficar fora da tela)
+    var y = Math.floor(Math.floor(window.innerHeight / 2) / 64) * 64; // Posição inicial em Y
+    var moving = false; // A mascote está a mover-se?
+    var mouseX = 0; // Posição X do rato
+    var mouseY = 0; // Posição Y do rato
+    var petCount = 0; // Contador de interações (carícias)
+    var currentMode = promotional ? MODES.PROMOTIONAL : MODES.RANDOM; // Definir modo inicial
+    var modeTimer = 0; // Temporizador para mudar de modo
+    var modeChangeCooldown = 0; // Tempo de espera antes de mudar de modo novamente
+    var navbarHeight = 70; // Altura estimada da navbar para evitar sobreposição
+    var targetElement = null; // Elemento alvo no modo "curioso"
+    var exploreAttempts = 0; // Tentativas de exploração do elemento atual
 
-    // Last position to detect if pet is stuck
+    // Detetar se a mascote está presa num local (não consegue mover-se)
     var lastX = x;
     var lastY = y;
     var stuckCounter = 0;
 
-    // Ensure the pet doesn't enter the navbar area
+    // Garantir que a mascote não começa dentro da navbar
     if (y < navbarHeight) {
         y = navbarHeight;
     }
 
+    // Posicionar a mascote na tela
     ele.style.top = `${y}px`;
     ele.style.left = `${x}px`;
-    ele.style.transition = 'top 1500ms linear, left 1500ms linear';
+    ele.style.transition = 'top 1500ms linear, left 1500ms linear'; // Movimentos suaves
 
+    // Definir frases usadas
     var usedPhrases = [];
     var currentPromotionalIndex = 0;
     var lastInteractionTime = Date.now();
 
+    // Função para definir a animação da mascote
     var setAnim = (a) => {
-        frame = 0;
-        anim = a;
+        frame = 0; // Reset do frame para iniciar nova animação
+        anim = a; // Atualizar o estado de animação
     };
 
     var updateSpeechBubblePosition = () => {
