@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta charset="utf-8">
+	<title>Galeria de Posters - SocialWave</title>
+	<meta name="description" content="Descubra os nossos melhores posters educativos sobre redes sociais, criados para ajudar jovens a navegar no mundo digital com segurança e responsabilidade.">
+	<meta name="keywords" content="posters socialwave, conteúdo educativo digital, segurança online para jovens, equilíbrio digital">
+	<meta name="author" content="SocialWave">
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+	<link href="img/sw-2.png" rel="icon">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+	<link href="lib/animate/animate.min.css" rel="stylesheet">
+	<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+	<style>
+		.gallery-filter {
+			margin-bottom: 30px;
+		}
+
+		.gallery-filter .btn {
+			margin-right: 10px;
+			margin-bottom: 10px;
+			border-radius: 30px;
+			padding: 8px 20px;
+			font-weight: 600;
+			transition: all 0.3s;
+		}
+
+		.gallery-filter .btn.active {
+			background-color: var(--primary);
+			color: #fff;
+		}
+
+		.gallery-item {
+			margin-bottom: 30px;
+			border-radius: 10px;
+			overflow: hidden;
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+			transition: all 0.3s;
+			position: relative;
+			height: 700px;
+		}
+
+		.gallery-item:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+		}
+
+		.gallery-img {
+			overflow: hidden;
+			position: relative;
+		}
+
+		.gallery-img img {
+			transition: all 0.5s;
+			width: 100%;
+			object-fit: cover; /* Mantém a proporção da imagem */
+			height: 530px;
+
+		}
+
+		.gallery-item:hover .gallery-img img {
+			transform: scale(1.1);
+		}
+
+		.gallery-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			transition: all 0.3s;
+		}
+
+		.gallery-item:hover .gallery-overlay {
+			opacity: 1;
+		}
+
+		.gallery-info {
+			background: #fff;
+			padding: 20px;
+		}
+
+		.gallery-info h5 {
+			font-weight: 700;
+			margin-bottom: 10px;
+			color: var(--primary);
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.gallery-info p {
+			margin-bottom: 0;
+			color: #555;
+			flex-grow: 1;
+			min-height: 70px; /* Altura mínima para descrições */
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.gallery-stats {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 15px;
+			font-size: 14px;
+			color: #777;
+		}
+
+		.modal-content {
+			border-radius: 15px;
+			overflow: hidden;
+		}
+
+		.modal-body {
+			padding: 0;
+		}
+
+		.modal-footer {
+			justify-content: space-between;
+		}
+
+		.social-share a {
+			display: inline-block;
+			width: 40px;
+			height: 40px;
+			background: var(--primary);
+			color: #fff;
+			border-radius: 50%;
+			line-height: 40px;
+			text-align: center;
+			margin-right: 5px;
+			transition: all 0.3s;
+		}
+
+		.social-share a:hover {
+			transform: translateY(-3px);
+			background: var(--dark);
+		}
+
+		.featured-badge {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			background: var(--primary);
+			color: #fff;
+			padding: 5px 15px;
+			border-radius: 20px;
+			font-size: 12px;
+			font-weight: 600;
+			z-index: 10;
+		}
+
+		.hidden-item {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+	<a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+		<h2 class="m-0 text-primary"><img src="/img/socialwave.png" width="300" height="60" alt="SocialWave"/></h2>
+	</a>
+	<button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<div class="navbar-nav ms-auto p-4 p-lg-0">
+			<a href="index.html" class="nav-item nav-link">Inicio</a>
+			<a href="about.html" class="nav-item nav-link">Sobre-nos</a>
+			<a href="courses.html" class="nav-item nav-link">Cursos</a>
+			<a href="gallery.html" class="nav-item nav-link active">Galeria</a>
+			<a href="timeline.html" class="nav-item nav-link">Nossa Linha do Tempo</a>
+			<a href="contact.html" class="nav-item nav-link">Contacte-nos</a>
+		</div>
+		<a href="/courses/" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Entre<i class="fa fa-arrow-right ms-3"></i></a>
+	</div>
+</nav>
+<!-- Navbar End -->
+
+<!-- Header Start -->
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-10 text-center">
+				<h1 class="display-3 text-white animated slideInDown">Os Nossos Posters</h1>
+				<p class="fs-5 text-white mb-4">Descubra o nosso conteúdo educativo criado para ajudar os jovens a navegar no mundo digital com responsabilidade</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Header End -->
+
+<!-- Gallery Start -->
+<div class="container-xxl py-5">
+	<div class="container">
+		<div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+			<h6 class="section-title bg-white text-center text-primary px-3">Galeria</h6>
+			<h1 class="mb-5">Conteúdo Criativo e Educativo</h1>
+		</div>
+
+		<div class="gallery-filter text-center wow fadeInUp" data-wow-delay="0.2s">
+			<button class="btn btn-outline-primary active" data-filter="*">Todos</button>
+			<button class="btn btn-outline-primary" data-filter=".seguranca">Segurança</button>
+			<button class="btn btn-outline-primary" data-filter=".equilibrio">Equilíbrio Digital</button>
+			<button class="btn btn-outline-primary" data-filter=".estudos">Estudos</button>
+			<button class="btn btn-outline-primary" data-filter=".dicas">Dicas e Truques</button>
+			<button class="btn btn-outline-primary" data-filter=".datas">Datas especiais</button>
+		</div>
+
+		<div class="row g-4 gallery-container wow fadeInUp" data-wow-delay="0.3s">
+			<div class="col-lg-4 col-md-6 gallery-item datas">
+				<div class="position-relative">
+					<span class="featured-badge">Destaque</span>
+					<div class="gallery-img">
+						<img src="img/dia_pai.png" alt="Feliz dia Do Pai">
+						<div class="gallery-overlay">
+							<a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#galleryModal1"><i class="bi bi-search"></i>Ver Detalhe</a>
+						</div>
+					</div>
+					<div class="gallery-info">
+						<h5>Pai & Filho: Conectados Pelo Coração!</h5>
+						<p>Surpresa Digital – Crie um vídeo especial para homenageá-lo.</p>
+						<div class="gallery-stats">
+							<span><i class="bi bi-heart-fill text-danger"></i> 342 Gostos</span>
+							<span><i class="bi bi-share-fill text-primary"></i> 84 Partilhas</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6 gallery-item datas">
+				<div class="position-relative">
+					<div class="gallery-img">
+						<img src="img/dia_redes.gif" alt="Equilibrio Digital">
+						<div class="gallery-overlay">
+							<a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#galleryModal2"><i class="bi bi-search"></i> Ver Detalhe</a>
+						</div>
+					</div>
+					<div class="gallery-info">
+						<h5>Dia das Redes Sociais – Conecte-se de Verdade!</h5>
+						<p>Use as redes sociais para se conectar e fazer a diferença!</p>
+						<div class="gallery-stats">
+							<span><i class="bi bi-heart-fill text-danger"></i> 278 Gostos</span>
+							<span><i class="bi bi-share-fill text-primary"></i> 65 Partilhas</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6 gallery-item estudos">
+				<div class="position-relative">
+					<div class="gallery-img">
+						<img src="img/fale_conosco.gif" alt="Aplicações para Estudantes">
+						<div class="gallery-overlay">
+							<a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#galleryModal3"><i class="bi bi-search"></i> Ver Detalhe</a>
+						</div>
+					</div>
+					<div class="gallery-info">
+						<h5>Contacte-Nos</h5>
+						<p>“Estamos onde tu estás! Conecta-te, aprende e equilibra o digital com a vida real. A Social Wave está contigo!"</p>
+						<div class="gallery-stats">
+							<span><i class="bi bi-heart-fill text-danger"></i> 315 Gostos</span>
+							<span><i class="bi bi-share-fill text-primary"></i> 92 Partilhas</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6 gallery-item dicas hidden-item">
+				<div class="position-relative">
+					<div class="gallery-img">
+						<img src="img/jogo_palavra.png" alt="Jogo das palavras">
+						<div class="gallery-overlay">
+							<a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#galleryModal4"><i class="bi bi-search"></i> Ver Detalhe</a>
+						</div>
+					</div>
+					<div class="gallery-info">
+						<h5>Jogo das palavra</h5>
+						<p>Aprenda sobre segurança online e bem-estar digital enquanto se diverte!</p>
+						<div class="gallery-stats">
+							<span><i class="bi bi-heart-fill text-danger"></i> 290 Gostos</span>
+							<span><i class="bi bi-share-fill text-primary"></i> 73 Partilhas</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6 gallery-item datas hidden-item">
+				<div class="position-relative">
+					<div class="gallery-img">
+						<img src="img/pascoa.png" alt="Cyberbullying Prevenção">
+						<div class="gallery-overlay">
+							<a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#galleryModal5"><i class="bi bi-search"></i> Ver Detalhe</a>
+						</div>
+					</div>
+					<div class="gallery-info">
+						<h5>Feliz Páscoa com a Social Wave!</h5>
+						<p>Assim como o Dolphy te ajuda a encontrar harmonia entre o digital e os estudos, esta é a altura perfeita para equilibrar momentos online e offline, aproveitando o tempo com a família, amigos e, claro, muitos chocolates!</p>
+						<div class="gallery-stats">
+							<span><i class="bi bi-heart-fill text-danger"></i> 405 Gostos</span>
+							<span><i class="bi bi-share-fill text-primary"></i> 128 Partilhas</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6 gallery-item estudos datas hidden-item">
+				<div class="position-relative">
+					<span class="featured-badge">Destaque</span>
+					<div class="gallery-img">
+						<img src="img/blackfriday.png" alt="YouTube para Estudar">
+						<div class="gallery-overlay">
+							<a href="#" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#galleryModal6"><i class="bi bi-search"></i> Ver Detalhe</a>
+						</div>
+					</div>
+					<div class="gallery-info">
+						<h5>Black Friday</h5>
+						<p>Esta Black Friday, queremos que aproveites o melhor do digital com equilíbrio e inteligência.</p>
+						<div class="gallery-stats">
+							<span><i class="bi bi-heart-fill text-danger"></i> 367 Gostos</span>
+							<span><i class="bi bi-share-fill text-primary"></i> 105 Partilhas</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="text-center mt-5 wow fadeInUp" data-wow-delay="0.5s">
+			<a id="load-more" href="#" class="btn btn-primary py-3 px-5">Carregar Mais <i class="bi bi-arrow-down ms-2"></i></a>
+		</div>
+	</div>
+</div>
+<!-- Gallery End -->
+
+<!-- Gallery Modals -->
+<div class="modal fade" id="galleryModal1" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Pai & Filho: Conectados Pelo Coração!</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<img src="img/dia_pai.png" alt="Poster em tamanho completo" class="w-100">
+			</div>
+			<div class="modal-footer">
+				<div class="social-share">
+					<p class="mb-2">Partilhar nas redes:</p>
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-pinterest"></i></a>
+				</div>
+				<a href="#" class="btn btn-primary">Transferir Poster</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+«<div class="modal fade" id="galleryModal2" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Dia das Redes Sociais – Conecte-se de Verdade!</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<img src="img/dia_redes.gif" alt="Poster em tamanho completo" class="w-100">
+			</div>
+			<div class="modal-footer">
+				<div class="social-share">
+					<p class="mb-2">Partilhar nas redes:</p>
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-pinterest"></i></a>
+				</div>
+				<a href="#" class="btn btn-primary">Transferir Poster</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="galleryModal3" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Fale Conosco!</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<img src="img/fale_conosco.gif" alt="Poster em tamanho completo" class="w-100">
+			</div>
+			<div class="modal-footer">
+				<div class="social-share">
+					<p class="mb-2">Partilhar nas redes:</p>
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-pinterest"></i></a>
+				</div>
+				<a href="#" class="btn btn-primary">Transferir Poster</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="galleryModal4" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Jogo das palavras</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<img src="img/fale_conosco.gif" alt="Poster em tamanho completo" class="w-100">
+			</div>
+			<div class="modal-footer">
+				<div class="social-share">
+					<p class="mb-2">Partilhar nas redes:</p>
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-pinterest"></i></a>
+				</div>
+				<a href="#" class="btn btn-primary">Transferir Poster</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="galleryModal5" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Feliz Páscoa com a Social Wave!</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<img src="img/fale_conosco.gif" alt="Poster em tamanho completo" class="w-100">
+			</div>
+			<div class="modal-footer">
+				<div class="social-share">
+					<p class="mb-2">Partilhar nas redes:</p>
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-pinterest"></i></a>
+				</div>
+				<a href="#" class="btn btn-primary">Transferir Poster</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="galleryModal6" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Black Friday</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<img src="img/blackfriday.png" alt="Poster em tamanho completo" class="w-100">
+			</div>
+			<div class="modal-footer">
+				<div class="social-share">
+					<p class="mb-2">Partilhar nas redes:</p>
+					<a href="#"><i class="fab fa-facebook-f"></i></a>
+					<a href="#"><i class="fab fa-instagram"></i></a>
+					<a href="#"><i class="fab fa-twitter"></i></a>
+					<a href="#"><i class="fab fa-pinterest"></i></a>
+				</div>
+				<a href="#" class="btn btn-primary">Transferir Poster</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Subscribe Section -->
+<div class="container-fluid bg-primary py-5 wow fadeInUp" data-wow-delay="0.1s">
+	<div class="container py-5">
+		<div class="row g-5 align-items-center">
+			<div class="col-lg-7">
+				<div class="section-title position-relative text-white mb-4">
+					<h1 class="mb-4 text-white">Não Percas Nenhum Poster</h1>
+					<p class="mb-0 text-white-50">Subscreve a nossa newsletter para receberes os últimos posters directamente no teu email. Prometemos não enviar spam!</p>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="bg-white rounded p-4">
+					<form>
+						<div class="input-group">
+							<input type="email" class="form-control border-0 p-3" placeholder="O teu email">
+							<button class="btn btn-primary px-4">Subscrever</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-light footer mt-5 wow fadeIn" data-wow-delay="0.1s">
+	<div class="container">
+		<div class="copyright">
+			<div class="row">
+				<div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+					&copy; <a class="border-bottom" href="#">SocialWave</a>, Todos os direitos reservados.
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Footer End -->
+
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		new WOW().init();
+
+		// Initialize isotope (for filtering)
+		var $grid = $('.gallery-container').isotope({
+			itemSelector: '.gallery-item',
+			layoutMode: 'fitRows'
+		});
+
+		// Filter items on button click
+		$('.gallery-filter').on('click', 'button', function() {
+			var filterValue = $(this).attr('data-filter');
+			$grid.isotope({ filter: filterValue });
+
+			// Add active class
+			$('.gallery-filter button').removeClass('active');
+			$(this).addClass('active');
+		});
+
+		document.getElementById("load-more").addEventListener("click", function(event) {
+			event.preventDefault();
+			const hiddenItems = document.querySelectorAll(".hidden-item");
+
+			hiddenItems.forEach(item => {
+				item.classList.remove("hidden-item");
+			});
+			$grid.isotope({ filter: "*" });
+
+		});
+
+
+		// Back to top button
+		$(window).scroll(function() {
+			if ($(this).scrollTop() > 300) {
+				$('.back-to-top').fadeIn('slow');
+			} else {
+				$('.back-to-top').fadeOut('slow');
+			}
+		});
+		$('.back-to-top').click(function() {
+			$('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+			return false;
+		});
+	});
+</script>
+</body>
+</html>

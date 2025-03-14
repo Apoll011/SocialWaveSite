@@ -1,0 +1,270 @@
+{
+  "courses": [
+    {
+      "id": "redes-sociais",
+      "title": "Introdução às Redes Sociais",
+      "duration": "5hr 30min",
+      "totalLessons": 15,
+      "coverImage": "/img/course-2.jpg",
+      "description": "Curso abrangente sobre redes sociais, cobrindo história, plataformas, perfis e impacto social",
+      "modules": [
+        {
+          "id": "historia-redes-sociais",
+          "title": "História das Redes Sociais",
+          "lessons": [
+            {"id": "evolucao-plataformas", "title": "Evolução das plataformas", "duration": "30 mins", "contentFile": "/courses/c/redes-sociais/historia/evolucao-plataformas.md", "active":  true},
+            {"id": "impacto-cultural", "title": "Impacto cultural", "duration": "25 mins", "contentFile": "/courses/c/redes-sociais/historia/impacto-cultural.md", "active":  true},
+            {"id": "tendencias-atuais", "title": "Tendências atuais", "duration": "20 mins", "contentFile": "/courses/c/redes-sociais/historia/tendencias-atuais.md", "active":  true}
+          ]
+        },
+        {
+          "id": "principais-plataformas",
+          "title": "Principais Plataformas",
+          "lessons": [
+            {"id": "facebook", "title": "Facebook", "duration": "25 mins", "contentFile": "/courses/c/redes-sociais/plataformas/facebook.md"},
+            {"id": "instagram", "title": "Instagram", "duration": "25 mins", "contentFile": "/courses/c/redes-sociais/plataformas/instagram.md"},
+            {"id": "twitter", "title": "Twitter", "duration": "20 mins", "contentFile": "/courses/c/redes-sociais/plataformas/twitter.md"}
+          ]
+        },
+        {
+          "id": "criacao-perfil",
+          "title": "Criação de Perfil",
+          "lessons": [
+            {"id": "configuracao-inicial", "title": "Configuração inicial", "duration": "30 mins", "contentFile": "/courses/c/redes-sociais/perfil/configuracao-inicial.md"},
+            {"id": "seguranca-privacidade", "title": "Segurança e privacidade", "duration": "35 mins", "contentFile": "/courses/c/redes-sociais/perfil/seguranca-privacidade.md"},
+            {"id": "bio-foto-perfil", "title": "Bio e foto de perfil", "duration": "25 mins", "contentFile": "/courses/c/redes-sociais/perfil/bio-foto-perfil.md"}
+          ]
+        },
+        {
+          "id": "etiqueta-nas-redes",
+          "title": "Etiqueta nas Redes",
+          "lessons": [
+            {"id": "comunicação-online", "title": "Comunicação online", "duration": "30 mins", "contentFile": "/courses/c/redes-sociais/etiqueta/comunicacao-online.md"}
+            ]
+        }
+      ]
+    },
+    {
+      "id": "marketing-redes-sociais",
+      "title": "Marketing nas Redes Sociais",
+      "duration": "6hr 15min",
+      "totalLessons": 15,
+      "coverImage": "/img/course-3.jpg",
+      "description": "Estratégias completas de marketing digital para redes sociais",
+      "modules": [
+        {
+          "id": "fundamentos-marketing-digital",
+          "title": "Fundamentos do Marketing Digital",
+          "lessons": [
+            {"id": "marketing-digital-vs-tradicional", "title": "Diferenças entre marketing digital e tradicional", "duration": "30 mins", "contentFile": "/courses/c/marketing/fundamentos/marketing-digital.md"},
+            {"id": "publico-alvo", "title": "Público-alvo e segmentação", "duration": "35 mins", "contentFile": "/courses/c/marketing/fundamentos/publico-alvo.md"},
+            {"id": "funil-vendas", "title": "Funil de vendas", "duration": "25 mins", "contentFile": "/courses/c/marketing/fundamentos/funil-vendas.md"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gestao-crises-redes-sociais",
+      "title": "Gestão de Crises nas Redes Sociais",
+      "duration": "8hr 45min",
+      "totalLessons": 15,
+      "coverImage": "data:image/jpeg;base64,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",
+      "description": "Aprenda como identificar, gerenciar e superar crises nas redes sociais, mantendo a reputação da sua marca.",
+      "modules": [
+        {
+          "id": "modulo1-identificando-crises",
+          "title": "Identificando Crises",
+          "lessons": [
+            { "id": "tipos-de-crises", "title": "Tipos de crises", "duration": "30 mins", "contentFile": "/courses/c/tipos-crises.md", "active": false },
+            { "id": "sinais-de-alerta", "title": "Sinais de alerta", "duration": "45 mins", "contentFile": "/courses/c/sinais-alerta.md", "active": false },
+            { "id": "estudos-de-caso", "title": "Estudos de caso", "duration": "1hr", "contentFile": "/courses/c/estudos-caso.md", "active": false }
+          ]
+        },
+        {
+          "id": "modulo2-preparacao-crises",
+          "title": "Preparação para Crises",
+          "lessons": [
+            { "id": "plano-contingencia", "title": "Plano de contingência", "duration": "30 mins", "contentFile": "/courses/c/plano-contingencia.md", "active": false },
+            { "id": "equipe-resposta", "title": "Equipe de resposta", "duration": "45 mins", "contentFile": "/courses/c/equipe-resposta.md", "active": false },
+            { "id": "comunicacao-interna", "title": "Comunicação interna", "duration": "30 mins", "contentFile": "/courses/c/comunicacao-interna.md", "active": false }
+          ]
+        },
+        {
+          "id": "modulo3-comunicacao-crise",
+          "title": "Comunicação durante a Crise",
+          "lessons": [
+            { "id": "mensagens-chave", "title": "Mensagens chave", "duration": "30 mins", "contentFile": "/courses/c/mensagens-chave.md", "active": false },
+            { "id": "transmitindo-transparencia", "title": "Transmitindo transparência", "duration": "45 mins", "contentFile": "/courses/c/transmitindo-transparencia.md", "active": false },
+            { "id": "uso-canais-apropriados", "title": "Uso de canais apropriados", "duration": "45 mins", "contentFile": "/courses/c/canais-apropriados.md", "active": false }
+          ]
+        },
+        {
+          "id": "modulo4-monitoramento-analise",
+          "title": "Monitoramento e Análise",
+          "lessons": [
+            { "id": "ferramentas-monitoramento", "title": "Ferramentas de monitoramento", "duration": "1hr", "contentFile": "/courses/c/ferramentas-monitoramento.md", "active": false },
+            { "id": "analise-sentimentos", "title": "Análise de sentimentos", "duration": "45 mins", "contentFile": "/courses/c/analise-sentimentos.md", "active": false },
+            { "id": "aprendizado-pos-crise", "title": "Aprendizado pós-crise", "duration": "30 mins", "contentFile": "/courses/c/aprendizado-pos-crise.md", "active": false }
+          ]
+        },
+        {
+          "id": "modulo5-reconstruindo-imagem",
+          "title": "Reconstruindo a Imagem",
+          "lessons": [
+            { "id": "estrategias-recuperacao", "title": "Estratégias de recuperação", "duration": "30 mins", "contentFile": "/courses/c/estrategias-recuperacao.md", "active": false },
+            { "id": "engajamento-publico", "title": "Engajamento com o público", "duration": "45 mins", "contentFile": "/courses/c/engajamento-publico.md", "active": false },
+            { "id": "mensuracao-resultados", "title": "Mensuração de resultados", "duration": "30 mins", "contentFile": "/courses/c/mensuracao-resultados.md", "active": false }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "redes-sociais-para-negocios",
+      "title": "Redes Sociais para Negócios",
+      "duration": "12hr",
+      "totalLessons": 15,
+      "coverImage": "/img/redes-negocios.png",
+      "description": "Descubra como usar as redes sociais para alavancar negócios, melhorar vendas e engajar clientes.",
+      "modules": [
+        {
+          "id": "modulo1-criando-perfil-profissional",
+          "title": "Criando um Perfil Profissional",
+          "lessons": [
+            { "id": "diferencas-perfis", "title": "Diferenças entre perfis pessoais e profissionais", "duration": "30 mins", "contentFile": "/courses/c/diferencas-perfis.md", "active": false },
+            { "id": "otimizacao-perfis", "title": "Otimização de perfis", "duration": "45 mins", "contentFile": "/courses/c/otimizacao-perfis.md", "active": false },
+            { "id": "boas-praticas", "title": "Boas práticas", "duration": "30 mins", "contentFile": "/courses/c/boas-praticas.md", "active": false }
+          ]
+        },
+        {
+          "id": "modulo2-construindo-marca-pessoal",
+          "title": "Construindo uma Marca Pessoal",
+          "lessons": [
+            { "id": "identidade-marca", "title": "Identidade de marca", "duration": "45 mins", "contentFile": "/courses/c/identidade-marca.md", "active": false },
+            { "id": "consistencia-comunicacao", "title": "Consistência na comunicação", "duration": "30 mins", "contentFile": "/courses/c/consistencia-comunicacao.md", "active": false },
+            { "id": "branding-redes-sociais", "title": "Branding nas redes sociais", "duration": "1hr", "contentFile": "/courses/c/branding-redes-sociais.md", "active": false }
+          ]
+        },
+        {
+          "id": "modulo3-vendas-networking",
+          "title": "Vendas e Networking",
+          "lessons": [
+            { "id": "estrategias-vendas", "title": "Estratégias de vendas", "duration": "45 mins", "contentFile": "/courses/c/estrategias-vendas.md", "active": false },
+            { "id": "networking-eficaz", "title": "Networking eficaz", "duration": "30 mins", "contentFile": "/courses/c/networking-eficaz.md", "active": false },
+            { "id": "seguimento-fechamento", "title": "Seguimento e fechamento", "duration": "1hr", "contentFile": "/courses/c/seguimento-fechamento.md", "active": false }
+          ]
+        },
+        {
+          "id": "modulo4-atendimento-cliente",
+          "title": "Atendimento ao Cliente",
+          "lessons": [
+            { "id": "resolucao-problemas", "title": "Resolução de problemas", "duration": "45 mins", "contentFile": "/courses/c/resolucao-problemas.md", "active": false },
+            { "id": "gestao-criticas", "title": "Gestão de críticas", "duration": "30 mins", "contentFile": "/courses/c/gestao-criticas.md", "active": false },
+            { "id": "engajamento-pos-venda", "title": "Engajamento pós-venda", "duration": "1hr", "contentFile": "/courses/c/engajamento-pos-venda.md", "active": false }
+          ]
+        },
+        {
+          "id": "modulo5-estudo-casos-sucesso",
+          "title": "Estudo de Casos de Sucesso",
+          "lessons": [
+            { "id": "analise-marcas", "title": "Análise de marcas que se destacam", "duration": "45 mins", "contentFile": "/courses/c/analise-marcas.md", "active": false },
+            { "id": "licoes-aprendidas", "title": "Lições aprendidas", "duration": "30 mins", "contentFile": "/courses/c/licoes-aprendidas.md", "active": false },
+            { "id": "aplicacao-estrategias", "title": "Aplicação de estratégias", "duration": "1hr", "contentFile": "/courses/c/aplicacao-estrategias.md", "active": false }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "natal-redes-sociais",
+      "title": "Natal nas Redes Sociais: Estratégias e Criatividade",
+      "duration": "3hr 20min",
+      "totalLessons": 10,
+      "coverImage": "/img/campanha-natal.png",
+      "description": "Aprenda como aproveitar o Natal para criar campanhas criativas e envolventes nas redes sociais.",
+      "modules": [
+        {
+          "id": "criacao-conteudo-natal",
+          "title": "Criação de Conteúdo Natalino",
+          "lessons": [
+            {
+              "id": "ideias-posts",
+              "title": "Ideias para posts natalinos",
+              "duration": "25 mins",
+              "contentFile": "/courses/c/natal/conteudo/ideias-posts.md",
+              "active": false
+            },
+            {
+              "id": "ferramentas-visuais",
+              "title": "Ferramentas visuais para edição",
+              "duration": "30 mins",
+              "contentFile": "/courses/c/natal/conteudo/ferramentas-visuais.md",
+              "active": false
+            },
+            {
+              "id": "calendario-natalino",
+              "title": "Planejamento de um calendário natalino",
+              "duration": "20 mins",
+              "contentFile": "/courses/c/natal/conteudo/calendario-natalino.md",
+              "active": false
+            }
+          ]
+        },
+        {
+          "id": "engajamento-natalino",
+          "title": "Estratégias de Engajamento",
+          "lessons": [
+            {
+              "id": "campanhas-natalinas",
+              "title": "Como criar campanhas natalinas de sucesso",
+              "duration": "30 mins",
+              "contentFile": "/courses/c/natal/engajamento/campanhas-natalinas.md",
+              "active": false
+            },
+            {
+              "id": "storytelling-natal",
+              "title": "Storytelling: Contando histórias de Natal",
+              "duration": "25 mins",
+              "contentFile": "/courses/c/natal/engajamento/storytelling-natal.md",
+              "active": false
+            },
+            {
+              "id": "parcerias-marcas",
+              "title": "Parcerias com marcas para o Natal",
+              "duration": "20 mins",
+              "contentFile": "/courses/c/natal/engajamento/parcerias-marcas.md",
+              "active": false
+            }
+          ]
+        },
+        {
+          "id": "analise-natal",
+          "title": "Análise de Resultados",
+          "lessons": [
+            {
+              "id": "metrica-campanhas",
+              "title": "Métricas essenciais para campanhas de Natal",
+              "duration": "20 mins",
+              "contentFile": "/courses/c/natal/analise/metrica-campanhas.md",
+              "active": false
+            },
+            {
+              "id": "ferramentas-monitoramento",
+              "title": "Ferramentas de monitoramento de redes sociais",
+              "duration": "30 mins",
+              "contentFile": "/courses/c/natal/analise/ferramentas-monitoramento.md",
+              "active": false
+            },
+            {
+              "id": "ajustes-otimizacoes",
+              "title": "Ajustes e otimizações para campanhas futuras",
+              "duration": "20 mins",
+              "contentFile": "/courses/c/natal/analise/ajustes-otimizacoes.md",
+              "active": false
+            }
+          ]
+        }
+      ]
+    }
+
+
+  ]
+}

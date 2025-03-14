@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+	<title>SocialWave - Educação e Navegação Segura nas Redes Sociais</title>
+	<meta name="description" content="SocialWave ajuda jovens e adolescentes a usarem redes sociais de forma segura e equilibrada. Oferecemos educação digital para transformar seu tempo online em algo produtivo.">
+	<meta name="keywords" content="educação digital, redes sociais para jovens, segurança online, equilíbrio digital, adolescentes nas redes sociais, uso consciente de mídias sociais, dicas de segurança online">
+	<meta name="author" content="SocialWave">
+
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="img/sw-2.png" rel="icon">
+
+    <link href="css/all.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+
+	<style>
+		.owl-dots {
+			text-align: center;
+			margin-top: -45px;
+			position: inherit;
+		}
+
+		.owl-dot {
+			display: inline-block;
+			width: 12px;
+			height: 12px;
+			margin: 0 5px;
+			background: #ccc;
+			border-radius: 50%;
+			cursor: pointer;
+		}
+
+		.owl-dot.active {
+			background: #007BFF;
+		}
+
+		.owl-carousel-item img {
+			flex-shrink: 0;
+			height: calc(100vh - 75px);
+			object-fit: cover;
+		}
+	</style>
+
+	<style>
+		.christmas-promo-card {
+			color: white;
+			box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+			transition: transform 0.3s ease;
+			background-image: url('img/christmas.png'), linear-gradient(to right, transparent -5%, rgba(44, 62, 80, 0.48) 20%, #3498db);
+			background-size: cover; /* Scales image to cover entire div */
+			background-position: center; /* Centers image */
+			background-repeat: no-repeat;
+		}
+		.christmas-promo-card:hover {
+			transform: scale(1.05);
+		}
+		.discount-badge {
+			background-color: #e74c3c;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-weight: bold;
+		}
+		.snowflake-container {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 9999;
+		}
+		.snowflake {
+			position: absolute;
+			color: white;
+			font-size: 15px;
+			user-select: none;
+			pointer-events: none;
+			opacity: 0.8;
+			animation: fall linear infinite;
+		}
+		@keyframes fall {
+			0% {
+				transform: translateY(-10px);
+				opacity: 0.7;
+			}
+			100% {
+				transform: translateY(100vh);
+				opacity: 0;
+			}
+		}
+		.btn-promo {
+			position: relative;
+			background-color: #e74c3c;
+			color: white;
+			overflow: hidden;
+			transition: all 0.3s ease;
+		}
+
+		.btn-promo::before {
+			content: '';
+			position: absolute;
+			top: -50%;
+			left: -50%;
+			width: 200%;
+			height: 200%;
+			background: conic-gradient(
+					from 0deg,
+					transparent 0deg 90deg,
+					gold 90deg 180deg,
+					transparent 180deg 270deg,
+					gold 270deg 360deg
+			);
+			animation: rotate-border 2s linear infinite;
+		}
+
+		.btn-promo::after {
+			content: '';
+			position: absolute;
+			inset: 3px;
+			background: #e74c3c;
+			z-index: 1;
+		}
+
+		.btn-promo a, .btn-promo span {
+			position: relative;
+			z-index: 2;
+			color: white;
+		}
+		.btn-promo a:hover {
+			color: white;
+		}
+
+		.btn-spotlight:hover {
+			animation: spotlight 0.5s ease-in-out infinite alternate;
+			box-shadow:
+					0 0 10px gold,
+					0 0 20px gold,
+					0 0 30px gold,
+					0 0 40px rgba(255,215,0,0.7);
+			color: #fff;
+		}
+
+		@keyframes rotate-border {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		@keyframes spotlight {
+			0% {
+				width: 250px;
+				height: 50px;
+				box-shadow:
+						0 0 0 gold,
+						0 0 5px gold,
+						0 0 10px gold,
+						0 0 25px rgba(255,215,0,0.7);
+			}
+			30% {
+				width: 270px;
+				height: 60px;
+				box-shadow:
+						0 0 10px gold,
+						0 0 20px gold,
+						0 0 30px gold,
+						0 0 40px rgba(255,215,0,0.7);
+			}
+			100% {
+				width: 300px;
+				height: 70px;
+				box-shadow:
+						0 0 25px gold,
+						0 0 35px gold,
+						0 0 45px gold,
+						0 0 55px rgba(255,215,0,0.9);
+			}
+		}
+		.text-warning {
+			text-stroke: 1px black;
+		}
+	</style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R245WL859B"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-R245WL859B');
+</script>
+
+
+<body>
+	<div class="snowflake-container" id="snowflake-container"></div>
+
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><img src="/img/socialwave.png" width="300" height="60"/></h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="index.html" class="nav-item nav-link active">Inicio</a>
+                <a href="about.html" class="nav-item nav-link">Sobre-nos</a>
+                <a href="courses.html" class="nav-item nav-link">Cursos</a>
+	            <a href="gallery.html" class="nav-item nav-link">Galeria</a>
+	            <a href="timeline.html" class="nav-item nav-link">Nossa LInha do Tempo</a>
+	            <a href="contact.html" class="nav-item nav-link">Contacte-nos</a>
+            </div>
+            <a href="/courses/" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Entre<i class="fa fa-arrow-right ms-3"></i></a>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-0 mb-5">
+        <div class="owl-carousel header-carousel position-relative">
+            <div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="img/cat-4.jpg" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Redes Sociais com Propósito</h5>
+                                <h1 class="display-3 text-white animated slideInDown">Descubra como usar as redes para aprender e crescer.</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-sm-10 col-lg-8">
+                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Equilíbrio é Tudo</h5>
+                                <h1 class="display-3 text-white animated slideInDown">Saiba como balancear estudos e redes sociais com inteligência.</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	        <div class="owl-carousel-item position-relative">
+		        <img class="img-fluid" src="img/cat-3.jpg" alt="">
+		        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+			        <div class="container">
+				        <div class="row justify-content-start">
+					        <div class="col-sm-10 col-lg-8">
+						        <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Conecte-se com Segurança</h5>
+						        <h1 class="display-3 text-white animated slideInDown">Dicas práticas para navegar nas redes sem preocupações.</h1>
+					        </div>
+				        </div>
+			        </div>
+		        </div>
+	        </div>
+	        <div class="owl-carousel-item position-relative">
+		        <img class="img-fluid" src="img/cat-2.jpg" alt="">
+		        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
+			        <div class="container">
+				        <div class="row justify-content-start">
+					        <div class="col-sm-10 col-lg-8">
+						        <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Aproveite o Melhor das Redes</h5>
+						        <h1 class="display-3 text-white animated slideInDown">Transforme o seu tempo online numa ferramenta de sucesso.</h1>
+					        </div>
+				        </div>
+			        </div>
+		        </div>
+	        </div>
+        </div>
+    </div>
+
+	<!--div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<div class="card christmas-promo-card position-relative overflow-hidden">
+					<div class="card-body text-center p-5">
+						<h2 class="card-title mb-4">🎄 Promoção Natal SocialWave 🎄</h2>
+						<div class="discount-badge mb-4">
+							Desconto Progressivo de Cursos
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<h4>+ 2 Cursos</h4>
+								<p class="text-warning">Plano Basico</p>
+							</div>
+							<div class="col-md-4">
+								<h4>+ 3 Cursos</h4>
+								<p class="text-warning">Plano Intermediário</p>
+							</div>
+							<div class="col-md-4">
+								<h4> + 4 Cursos</h4>
+								<p class="text-warning">Plano Avançado</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<h4>+ 1 Curso especial de Natal</h4>
+								<p class="text-warning">Todos os Planos</p>
+							</div>
+						</div>
+						<h3 class="mt-4">
+							Este Natal, aprenda mais e ganhe mais!</h3>
+						<p class="mt-2"><strong>Quanto maior o plano, mais cursos você leva para turbinar a suas habilidades digitais. Escolha o seu e aproveite ao máximo essa oportunidade!</strong></p>
+						<button class="btn btn-promo btn-spotlight btn-lg mt-3">
+							<a href="#promotion">Aproveitar Promoção</a>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div-->
+
+	<div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
+                            <h5 class="mb-3">Cursos criados cuidadosamente</h5>
+                            <p>Os nossos cursos são planeados com atenção aos detalhes para garantir a sua evolução a cada etapa.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-globe text-primary mb-4"></i>
+                            <h5 class="mb-3">Cursos Estruturados em Modulos</h5>
+                            <p>Dividimos o conteúdo em módulos claros e objetivos, para que você aprenda no seu ritmo.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-home text-primary mb-4"></i>
+                            <h5 class="mb-3">Estude a partir da sua Casa</h5>
+                            <p>Acesse todo o conteúdo onde e quando quiser, sem sair do conforto do seu lar, com facilidade e segurança.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="service-item text-center pt-3">
+                        <div class="p-4">
+                            <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
+                            <h5 class="mb-3">Fale com o nosso AI Dolphy</h5>
+                            <p>Dolphy está pronto para responder as suas dúvidas e ajudar no seu aprendizado, a qualquer hora.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                    <div class="position-relative h-100">
+                        <img class="img-fluid position-absolute w-100 h-100" src="img/cat-4.jpg" alt="" style="object-fit: cover;border-radius: 15px;">
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <h6 class="section-title bg-white text-start text-primary pe-3">Sobre Nos</h6>
+                    <h1 class="mb-4">Bem Vindo A SocialWave</h1>
+                    <p class="mb-4">Num cenário cada vez mais digital e dinâmico, o lançamento de uma nova plataforma como a SocialWave demanda não apenas inovação, mas também estratégias de marketing Serviços inteligentes para estabelecer a sua presença no mercado.</p>
+                    <p class="mb-4">A SocialWave é uma nova empresa no mercado com a missão de ajudar jovens e adolescentes a compreender e utilizar as redes sociais de forma eficaz e segura. Com o aumento do uso dessas plataformas entre o público jovem, é essencial fornecer orientações e ferramentas que permitam uma navegação responsável e produtiva. </p>
+                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Leia Mais</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Cursos</h6>
+                <h1 class="mb-5">Cursos Populares</h1>
+            </div>
+            <div class="row g-4 justify-content-center" id="courses-container">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="text-center">
+                <h6 class="section-title bg-white text-center text-primary px-3">Testemunhos</h6>
+                <h1 class="mb-5">O que os nossos estudantes dizem!</h1>
+            </div>
+	        <div class="owl-carousel testimonial-carousel position-relative">
+		        <div class="testimonial-item text-center">
+			        <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-1.jpg" style="width: 80px; height: 80px;">
+			        <h5 class="mb-0">Camila Andrade</h5>
+			        <p>Estudante Universitária</p>
+			        <div class="testimonial-text bg-light text-center p-4">
+				        <p class="mb-0">"Os cursos da SocialWave ensinaram-me como aproveitar as redes sociais de maneira equilibrada. Agora, estudo e divirto-me online com mais segurança."</p>
+			        </div>
+		        </div>
+		        <div class="testimonial-item text-center">
+			        <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-2.jpg" style="width: 80px; height: 80px;">
+			        <h5 class="mb-0">Lucas Ferreira</h5>
+			        <p>Jovem Empreendedor</p>
+			        <div class="testimonial-text bg-light text-center p-4">
+				        <p class="mb-0">"Aprendi a usar as redes sociais como ferramenta para o meu negócio. A SocialWave mudou a minha perspetiva sobre o mundo digital!"</p>
+			        </div>
+		        </div>
+		        <div class="testimonial-item text-center">
+			        <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-4.jpg" style="width: 80px; height: 80px;">
+			        <h5 class="mb-0">Ana Clara</h5>
+			        <p>Professora</p>
+			        <div class="testimonial-text bg-light text-center p-4">
+				        <p class="mb-0">"Recomendo a SocialWave para todos os meus alunos. As lições de segurança digital são valiosas no dia a dia!"</p>
+			        </div>
+		        </div>
+		        <div class="testimonial-item text-center">
+			        <img class="border rounded-circle p-2 mx-auto mb-3" src="img/testimonial-3.jpg" style="width: 80px; height: 80px;">
+			        <h5 class="mb-0">Diego Santos</h5>
+			        <p>Designer Gráfico</p>
+			        <div class="testimonial-text bg-light text-center p-4">
+				        <p class="mb-0">"Nunca pensei que poderia usar as redes sociais para crescer profissionalmente. Obrigado, SocialWave!"</p>
+			        </div>
+		        </div>
+	        </div>
+
+        </div>
+    </div>
+
+    <div class="pricing container-xl py-5 wow fadeInUp " data-wow-delay="0.1s">
+	    <div class="text-center">
+		    <h6 class="section-title bg-white text-center text-primary px-3">Os Nossos Preços</h6>
+		    <h1 class="mb-5">Transparência e qualidade ao melhor custo.</h1>
+	    </div>
+	    <div class="row g-4 justify-content-center">
+
+		    <div class="col-lg-4 wow fadeInUp " data-wow-delay="0.1s">
+			    <div class="pricing-card">
+				    <div class="popular-badge">+ 1 Curso</div>
+				    <h3>Plano Básico - "Iniciante Digital"</h3>
+				    <div class="price">
+					    <span class="amount">00</span>
+					    <span class="currency">$</span>
+					    <span class="amount">00</span>
+					    <span class="period">/ mês</span>
+				    </div>
+				    <p class="description">Ideal para quem está a começar a usar redes sociais de forma consciente.</p>
+
+				    <h4>Inclui:</h4>
+				    <ul class="features-list">
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Acesso a 5 cursos
+					    </li>
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Guias práticos de boas práticas nas redes sociais.
+					    </li>
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Suporte básico via chatbot.
+					    </li>
+					    <li>
+						    <i class="bi  bi-x-circle"></i>
+						    <s>Acompanhamento por nossos especialistas em redes sociais.</s>
+					    </li>
+					    <li>
+						    <i class="bi  bi-x-circle"></i>
+						    <s>Acesso antecipado a novos conteúdos e funcionalidades.</s>
+					    </li>
+				    </ul>
+
+				    <a href="#" class="btn btn-primary">Comece Agora <i class="fa fa-arrow-right ms-2"></i></a>
+
+			    </div>
+		    </div>
+
+		    <div class="col-lg-4 wow fadeInUp " data-wow-delay="0.4s">
+			    <div class="pricing-card popular">
+				    <div class="popular-badge">Mais Popular + 3 Cursos</div>
+				    <h3>Plano Intermediário - "Influencer Consciente"</h3>
+				    <div class="price">
+					    <span class="amount">250</span>
+					    <span class="currency">$</span>
+					    <span class="amount">00</span>
+					    <span class="period">/ mês</span>
+				    </div>
+				    <p class="description">Para quem já entende o básico e quer dominar a criação de conteúdo nas redes.</p>
+
+				    <h4>Inclui:</h4>
+				    <ul class="features-list">
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Acesso a todos os cursos básicos e intermediários.
+					    </li>
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Workshops sobre branding e estratégias de conteúdo.
+					    </li>
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Acompanhamento por nossos especialistas em redes sociais.
+					    </li>
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Suporte prioritário via chatbot e e-mail.
+					    </li>
+
+				    </ul>
+
+				    <a href="#" class="btn btn-light">Assine Agora <i class="fa fa-arrow-right ms-2"></i></a>
+
+			    </div>
+		    </div>
+
+		    <div class="col-lg-4 wow fadeInUp " data-wow-delay="0.8s">
+			    <div class="pricing-card">
+				    <div class="popular-badge">+ 4 Cursos</div>
+				    <h3>Plano Avançado - "Mestre das Redes"</h3>
+				    <div class="price">
+					    <span class="amount">900</span>
+					    <span class="currency">$</span>
+					    <span class="amount">00</span>
+					    <span class="period">/ mês</span>
+				    </div>
+				    <p class="description">Para profissionais e criadores que desejam maximizar a sua presença online.</p>
+
+				    <h4>Inclui:</h4>
+				    <ul class="features-list">
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Acesso a todos os cursos básicos, intermediários e avançados.
+					    </li>
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Consultoria individual com especialistas em marketing digital.
+					    </li>
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Análise de desempenho e relatórios personalizados.
+					    </li>
+					    <li>
+						    <i class="bi bi-check2-circle"></i>
+						    Acesso antecipado a novos conteúdos e funcionalidades.
+					    </li>
+				    </ul>
+
+				    <a href="#" class="btn btn-primary">Explore Agora <i class="fa fa-arrow-right ms-2"></i></a>
+
+			    </div>
+		    </div>
+
+	    </div>
+
+    </div>
+
+	<div class="promocode">
+		<div class="promo-block py-5">
+			<div class="container py-md-5 py-4">
+				<div class="row app-section">
+					<div class="col-lg-6 app4-right-image">
+						<img src="img/mobile.png" class="img-fluid" alt="App Device" />
+					</div>
+					<div class="col-lg-6 app-left-text pl-lg-0 mb-lg-0 mb-5">
+						<h6>Para Todas as Vantages dessa promoção</h6>
+						<h4>Consiga o nosso codigo de promoção</h4>
+						<p class="mb-4">Quer transformar a sua jornada digital com descontos especiais? Na SocialWave, criamos planos promocionais para ajudar jovens e adolescentes a aprenderem sobre uso consciente das redes sociais. O nosso código promocional não é apenas um desconto, é um investimento no seu desenvolvimento digital e acadêmico.</p>
+						<div class="app-connection">
+							<div class="newsletter">
+								<label>Nunca fique desatualizado!</label>
+								<form action="#" methos="POST" class="d-flex wrap-align register">
+									<input type="email" id="promotion" placeholder="Seu Email" required="required" />
+									<button type="submit" class="button-style btn btn-promo"><span>Nosso Codigo</span></button>
+								</form>
+							</div>
+							<p class="mobile-text-app mt-4 pt-2">(Ou) Baixe os nossos aplicativos moveis</p>
+							<div class="app-icon">
+								<ul>
+									<li><a href="#" data-toggle="modal" data-target="#aplModal" title="Apple" class="app-icon apple-vv"><span
+											class="fab fa-apple  icon-color" aria-hidden="true"></span></a></li>
+									<li><a href="#" data-toggle="modal" data-target="#appModal" title="Google play" class="app-icon play-vv"><span
+											class="fab fa-google-play icon-color" aria-hidden="true"></span></a>
+									</li>
+									<li><a href="#" data-toggle="modal" data-target="#winModal" title="Microsoft" class="app-icon windows-vv"><span
+											class="fab fa-windows icon-color" aria-hidden="true"></span></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div class="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">SocialWave</a>, todos os direitos reservados.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" style="display: none;" class="btn btn-lg btn-primary btn-lg-square back-to-top">🎄</a>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <script src="js/main.js"></script>
+	<script src="js/courses.js"></script>
+	<script src="js/pet.js"></script>
+	<script>loadAllCourses()</script>
+	<script>
+		function createSnowflake() {
+			const container = document.getElementById('snowflake-container');
+			const snowflake = document.createElement('div');
+			snowflake.classList.add('snowflake');
+
+			const snowflakeTypes = ['❄️', '✷', '✶'];
+			snowflake.innerHTML = snowflakeTypes[Math.floor(Math.random() * snowflakeTypes.length)];
+
+			const size = Math.random() * 15 + 10;
+			snowflake.style.fontSize = size + 'px';
+
+			const colors = ['#FFFFFF', '#F0F8FF', '#E0FFFF', '#B0E0E6'];
+			snowflake.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+			snowflake.style.textShadow = '0 0 10px rgba(255,255,255,0.7)';
+
+			snowflake.style.left = Math.random() * 100 + '%';
+
+			snowflake.style.animationDuration = (Math.random() * 7 + 3) + 's';
+
+			snowflake.style.animationDelay = -Math.random() * 5 + 's';
+
+			container.appendChild(snowflake);
+
+			setTimeout(() => {
+				snowflake.remove();
+			}, 10000);
+		}
+
+		const meuPet = createSitePet('example', [
+			"Olá! Bem-vindo à SocialWave! Estou aqui para ajudar você a navegar no mundo digital com segurança e diversão!",
+
+			"Sabia que você pode transformar as redes sociais em ferramentas de estudo? Vamos descobrir como juntos!",
+
+			"Equilibrar diversão e aprendizado nas redes sociais é possível! Deixe-me mostrar como!",
+
+			"Tempo de tela é importante! Lembre-se: 10 minutos de descanso a cada hora online ajuda sua concentração!",
+
+			"Ei, você já conferiu nossas dicas de segurança digital? Sua privacidade é nossa prioridade!",
+
+			"As redes sociais podem ser incríveis para aprender coisas novas! Já pensou em seguir canais educativos?",
+
+			"Na dúvida, pense antes de postar! Uma dica simples que pode salvar seu dia!",
+
+			"Precisando de ajuda para gerenciar seu tempo online? Tenho várias técnicas divertidas para compartilhar!",
+
+			"Você sabia? Estudar em grupo pelas redes sociais pode aumentar em até 40% seu rendimento escolar!",
+
+			"Descubra como usar as redes sociais a seu favor! Confira nossos cursos e transforme sua experiência digital!"
+		]);
+
+	</script>
+</body>
+
+</html>

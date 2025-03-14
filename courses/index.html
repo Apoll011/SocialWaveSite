@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<title>
+		SocialWave Dashboard
+	</title>
+	<link crossorigin="anonymous" href="/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/css/all.css" rel="stylesheet"/>
+	<link href="/lib/animate/animate.min.css" rel="stylesheet">
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<style>
+		body {
+			background-color: #f5f5f5;
+			font-family: 'Arial', sans-serif;
+		}
+
+		.content h1, .content h2, .content h3,.content h4,.content h5,.content h6 {
+			color: white;
+		}
+		.navbar {
+			background-color: #219EBC;
+		}
+		.navbar-brand, .nav-link, .navbar-text {
+			color: #fff;
+		}
+		.navbar-brand {
+			font-weight: bold;
+		}
+		.nav-link.active {
+			border-bottom: 2px solid #FFB703;
+		}
+		.content {
+			background-color: #219EBC;
+			color: #fff;
+			padding: 20px;
+		}
+		.content .card {
+			background-color: #219EBC;
+			border: 2px solid whitesmoke;
+			color: #fff;
+		}
+		.content .card .card-body {
+			padding: 10px;
+		}
+		.main-content {
+			padding: 20px;
+		}
+		.main-content .card {
+			border: none;
+			margin-bottom: 20px;
+		}
+		.main-content .card .card-body {
+			padding: 20px;
+		}
+		.suggested-courses .card {
+			border: none;
+			margin-bottom: 10px;
+		}
+		.suggested-courses .card .card-body {
+			padding: 10px;
+		}
+		.suggested-courses .card .card-body .course-title {
+			font-weight: bold;
+		}
+		.suggested-courses .card .card-body .course-description {
+			color: #6c757d;
+		}
+		.suggested-courses .card .card-body .course-lessons {
+			color: #FFB703;
+		}
+
+		.profile-card {
+			text-align: center;
+		}
+		.profile-card .card-body {
+			padding: 20px;
+		}
+		.profile-card .card-body .profile-name {
+			font-weight: bold;
+		}
+		.profile-card .card-body .profile-email {
+			color: #6c757d;
+		}
+		.profile-card .card-body .profile-rank {
+			color: #FB8500;
+		}
+
+		.container-fluid {
+			border-bottom: 1px solid rgba(255,255,255, 0.3);
+		}
+
+		.attr .card{
+			border-radius: 8px;
+			padding: 8px;
+			margin: 5px 5px;
+		}
+
+		.attr p{
+			font-size: 14px;
+		}
+
+	  .mcard {
+			padding: 15px;
+			border-radius: 10px;
+			border: 1px outset rgba(0,0,0,0.6);
+		}
+	  .card {
+		  border-radius: 10px;
+	  }
+
+      .courses-header {
+			background-color: #219EBC;
+			color: #fff;
+			padding: 40px 0;
+			text-align: center;
+		}
+		.course-card {
+			background-color: white;
+			border-radius: 10px;
+			box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+			margin-bottom: 30px;
+			transition: transform 0.3s ease;
+            height: 280px;
+		}
+		.course-card:hover {
+			transform: scale(1.03);
+		}
+		.course-card img {
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			width: 100%;
+			height: 150px;
+			object-fit: cover;
+		}
+        .course-card h3 {
+			font-size: 16px;
+		}
+		.course-card-body {
+			padding: 20px;
+		}
+		.course-card-footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 5px 20px;
+			border-top: 1px solid #e9ecef;
+		}
+		.btn-primary {
+			background-color: #219EBC;
+			border-color: #8ECAE6;
+		}
+		.btn-primary:hover {
+			background-color: #219EBC;
+			border-color: #219EBC;
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">SocialWave</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item">
+					<a class="nav-link active" href="/courses/">Inicio</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/courses/courses.html">Cursos</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/courses/comunity.html">Comunidade</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="#"><i class="fas fa-bell"></i></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#"><i class="fas fa-user-circle"></i></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="content">
+	<div class="container">
+		<div class="d-flex justify-content-between align-items-center mb-4">
+			<div>
+				<h5>
+					Bem-vindo de volta!
+				</h5>
+				<h3>
+					Amy Duarte
+				</h3>
+			</div>
+		</div>
+		<div class="row attr">
+			<div class="col-md-3">
+				<div class="card">
+					<div class="card-body">
+						<p>
+							Horas de Aprendizado
+						</p>
+						<h5>
+							22 hr 12 min
+						</h5>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card">
+					<div class="card-body">
+						<p>
+							Total de cursos abertos
+						</p>
+						<h5>
+							12 Cursos
+						</h5>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card">
+					<div class="card-body">
+						<p>
+							Cursos terminados
+						</p>
+						<h5>
+							8 Cursos
+						</h5>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card">
+					<div class="card-body">
+						<p>
+							Numero de certificados
+						</p>
+						<h5>
+							8 Certificados
+						</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="main-content">
+	<div class="container">
+		<div class="card  mb-4 wow fadeInUp" data-wow-delay="0.1s">
+			<div class="card-body mcard text-center">
+				<h5 style="color: #181d38;">
+					Dolphy AI
+				</h5>
+				<p>
+					Nosso assistente de IA geraria recomendações personalizadas de cursos, módulos ou recursos com base no seu estilo de aprendizado, cursos concluídos e resultados de quizzes.
+				</p>
+				<div class="input-group mb-3">
+					<input class="form-control" placeholder="Pergunte sobre qualquer curso" style="border-radius: 16px 0 0 16px;" type="text"/>
+					<button class="btn" style="background-color: #8ECAE6;border-radius: 0 16px 16px 0; " type="button">
+						Experimente o Dolphy
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+            <h3>Continue onde você parou</h3>
+			<div class="col-md-8">
+				<div class="row" id="courses-container">
+                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="course-card">
+                                <img src="/img/cat-1.jpg" alt="Introdução às Redes Sociais">
+                                <div class="course-card-body">
+                                    <h3>Introdução às Redes Sociais</h3>
+                                 </div>
+                                <div class="course-card-footer">
+                                    <div>
+                                        <small class="text-muted">5hr 30min</small><br>
+                                        <small class="text-muted">15 lições</small>
+                                    </div>
+                                    <a href="/courses/course.html?course_id=0" class="btn btn-primary btn-sm">Continuar Curso</a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                            <div class="course-card">
+                                <img src="/img/cat-2.jpg" alt="Marketing nas Redes Sociais">
+                                <div class="course-card-body">
+                                    <h3>Marketing nas Redes Sociais</h3>
+                                </div>
+                                <div class="course-card-footer">
+                                    <div>
+                                        <small class="text-muted">6hr 15min</small><br>
+                                        <small class="text-muted">15 lições</small>
+                                    </div>
+                                    <a href="/courses/course.html?course_id=1" class="btn btn-primary btn-sm">Continuar Curso</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="course-card">
+                                <img src="/img/cat-1.jpg" alt="Introdução às Redes Sociais">
+                                <div class="course-card-body">
+                                    <h3>Introdução às Redes Sociais</h3>
+                                 </div>
+                                <div class="course-card-footer">
+                                    <div>
+                                        <small class="text-muted">5hr 30min</small><br>
+                                        <small class="text-muted">15 lições</small>
+                                    </div>
+                                    <a href="/courses/course.html?course_id=0" class="btn btn-primary btn-sm">Continuar Curso</a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.4s">
+                            <div class="course-card">
+                                <img src="/img/cat-2.jpg" alt="Marketing nas Redes Sociais">
+                                <div class="course-card-body">
+                                    <h3>Marketing nas Redes Sociais</h3>
+                                </div>
+                                <div class="course-card-footer">
+                                    <div>
+                                        <small class="text-muted">6hr 15min</small><br>
+                                        <small class="text-muted">15 lições</small>
+                                    </div>
+                                    <a href="/courses/course.html?course_id=1" class="btn btn-primary btn-sm">Continuar Curso</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+			</div>
+			<div class="col-md-4">
+				<div class="card profile-card mb-4">
+					<div class="card-body mcard">
+						<img alt="User profile picture" class="rounded-circle mb-3" height="100" src="/img/testimonial-4.jpg" width="100"/>
+						<p class="profile-name">
+							Amy Duarte
+						</p>
+						<p class="profile-email">
+							duarteamy235@gmail.com
+						</p>
+						<p class="profile-rank">
+							2ª Lugar
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="row">
+            <h3>Recomendados</h3>
+			<div class="col-md-12">
+				<div class="row" id="courses-container">
+                        <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="course-card">
+                                <img src="/img/cat-1.jpg" alt="Introdução às Redes Sociais">
+                                <div class="course-card-body">
+                                    <h3>Introdução às Redes Sociais</h3>
+                                 </div>
+                                <div class="course-card-footer">
+                                    <div>
+                                        <small class="text-muted">5hr 30min</small><br>
+                                        <small class="text-muted">15 lições</small>
+                                    </div>
+                                    <a href="/courses/course.html?course_id=0" class="btn btn-primary btn-sm">Continuar Curso</a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-4 wow fadeInUp" data-wow-delay="0.4s">
+                            <div class="course-card">
+                                <img src="/img/cat-2.jpg" alt="Marketing nas Redes Sociais">
+                                <div class="course-card-body">
+                                    <h3>Marketing nas Redes Sociais</h3>
+                                </div>
+                                <div class="course-card-footer">
+                                    <div>
+                                        <small class="text-muted">6hr 15min</small><br>
+                                        <small class="text-muted">15 lições</small>
+                                    </div>
+                                    <a href="/courses/course.html?course_id=1" class="btn btn-primary btn-sm">Continuar Curso</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="course-card">
+                                <img src="/img/cat-1.jpg" alt="Introdução às Redes Sociais">
+                                <div class="course-card-body">
+                                    <h3>Introdução às Redes Sociais</h3>
+                                 </div>
+                                <div class="course-card-footer">
+                                    <div>
+                                        <small class="text-muted">5hr 30min</small><br>
+                                        <small class="text-muted">15 lições</small>
+                                    </div>
+                                    <a href="/courses/course.html?course_id=0" class="btn btn-primary btn-sm">Continuar Curso</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/wow/wow.min.js"></script>
+<script id="__webwhizSdk__" src="https://widget.webwhiz.ai/webwhiz-sdk.js" data-chatbot-id="6747247390b163db00dc8f95"></script>
+</body>
+</html>

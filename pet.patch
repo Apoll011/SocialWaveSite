@@ -1,0 +1,527 @@
+Index: js/pet.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/js/pet.js b/js/pet.js
+--- a/js/pet.js	
++++ b/js/pet.js	(date 1741512217208)
+@@ -3,9 +3,9 @@
+         gfx = 'sprite';
+     }
+     const ANI = {
+-        IDEL1: 0,
+-        IDEL2: 1,
+-        IDEL3: 2,
++        IDLE1: 0,
++        IDLE2: 1,
++        IDLE3: 2,
+         RIGHT: 3,
+         DOWN: 4,
+         LEFT: 5,
+@@ -23,6 +23,20 @@
+         PROMOTIONAL: 'promotional'
+     };
+ 
++    // Configurações de movimento
++    const MOVEMENT = {
++        BASE_SPEED: 30, // Aumentado de 6 para 15
++        FLEE_SPEED_MULTIPLIER: 2.0, // Aumentado de 1.8 para 2.0
++        FOLLOW_SPEED_MULTIPLIER: 1.2, // Aumentado de 0.8 para 1.2
++        CURIOUS_SPEED_MULTIPLIER: 1.0, // Aumentado de 0.7 para 1.0
++        RANDOM_MOVE_CHANCE: 1, // Aumentado de 0.7 para 0.8
++        DIRECTION_CHANGE_CHANCE: 0.15,
++        PATH_MEMORY: 3,
++        STUCK_THRESHOLD: 5,
++        CORNER_DETECTION_RADIUS: 80
++    };
++
++
+     var ele = document.createElement("div");
+     ele.style.position = 'fixed';
+     ele.style.width = '64px';
+@@ -61,6 +75,14 @@
+     var modeChangeCooldown = 0;
+     var navbarHeight = 70; // Altura estimada da navbar + margem de segurança
+ 
++    // Sistema de detecção para ficar preso
++    var positionHistory = [];
++    var stuckCounter = 0;
++    var lastDirection = null;
++    var currentPathTarget = null;
++    var avoidanceDirection = null;
++    var movementInertia = { x: 0, y: 0 };
++
+     // Garantir que o pet não entre na área da navbar
+     if (y < navbarHeight) {
+         y = navbarHeight;
+@@ -68,7 +90,8 @@
+ 
+     ele.style.top = `${y}px`;
+     ele.style.left = `${x}px`;
+-    ele.style.transition = 'top 1500ms linear, left 1500ms linear';
++    // Usando uma transição mais suave para movimento natural
++    ele.style.transition = 'top 0.15s ease-out, left 0.15s ease-out';
+ 
+     var usedPhrases = [];
+     var currentPromotionalIndex = 0;
+@@ -128,8 +151,6 @@
+     };
+ 
+     var changeMode = (newMode) => {
+-        console.log(`Changing mode to ${newMode}`);
+-
+         // No modo promocional, ignorar mudanças que não sejam para PROMOTIONAL ou FLEE
+         if (promotional && newMode !== MODES.PROMOTIONAL && newMode !== MODES.FLEE) {
+             newMode = MODES.PROMOTIONAL;
+@@ -142,12 +163,16 @@
+                 [MODES.FOLLOW]: 30 + Math.floor(Math.random() * 50),
+                 [MODES.FLEE]: 100,
+                 [MODES.CURIOUS]: 40 + Math.floor(Math.random() * 60),
+-                [MODES.SLEEPY]: 15 + Math.floor(Math.random() * 20), // Reduzido o tempo de sono
++                [MODES.SLEEPY]: 15 + Math.floor(Math.random() * 20),
+                 [MODES.PROMOTIONAL]: 60 + Math.floor(Math.random() * 60)
+             }[newMode];
+ 
++            // Resetar variáveis de detecção de "preso" ao mudar de modo
++            stuckCounter = 0;
++            avoidanceDirection = null;
++
+             if (newMode === MODES.SLEEPY && !promotional) {
+-                sleep = 5; // Reduzido o tempo de sono
++                sleep = 5;
+                 moving = false;
+                 setAnim(ANI.SLEEP);
+             }
+@@ -180,37 +205,136 @@
+             MODES.RANDOM, MODES.RANDOM, MODES.RANDOM,
+             MODES.FOLLOW, MODES.FOLLOW,
+             MODES.CURIOUS, MODES.CURIOUS,
+-            MODES.SLEEPY // Apenas uma chance de SLEEPY
++            MODES.SLEEPY
+         ];
+         return modes[Math.floor(Math.random() * modes.length)];
+     };
+ 
++    // Detector para verificar se está preso em um canto
++    var detectStuck = () => {
++        // Armazenar histórico de posições
++        positionHistory.push({x, y});
++        if (positionHistory.length > MOVEMENT.PATH_MEMORY) {
++            positionHistory.shift();
++        }
++
++        // Verificar se as posições estão muito próximas = preso
++        if (positionHistory.length === MOVEMENT.PATH_MEMORY) {
++            let totalDistance = 0;
++            for (let i = 1; i < positionHistory.length; i++) {
++                const prev = positionHistory[i-1];
++                const curr = positionHistory[i];
++                const dist = Math.sqrt(Math.pow(curr.x - prev.x, 2) + Math.pow(curr.y - prev.y, 2));
++                totalDistance += dist;
++            }
++
++            // Se a distância total percorrida nos últimos frames for muito pequena
++            if (totalDistance < 30) {
++                stuckCounter++;
++            } else {
++                stuckCounter = 0;
++            }
++        }
++
++        // Verificar se está preso em um canto
++        const isInLeftBorder = x < MOVEMENT.CORNER_DETECTION_RADIUS;
++        const isInRightBorder = x > window.innerWidth - 64 - MOVEMENT.CORNER_DETECTION_RADIUS;
++        const isInTopBorder = y < navbarHeight + MOVEMENT.CORNER_DETECTION_RADIUS;
++        const isInBottomBorder = y > window.innerHeight - 64 - MOVEMENT.CORNER_DETECTION_RADIUS;
++
++        const isInCorner = (isInLeftBorder && isInTopBorder) ||
++            (isInLeftBorder && isInBottomBorder) ||
++            (isInRightBorder && isInTopBorder) ||
++            (isInRightBorder && isInBottomBorder);
++
++        return stuckCounter >= MOVEMENT.STUCK_THRESHOLD || isInCorner;
++    };
++
++    // Escolher uma direção de fuga quando preso
++    var getEscapeDirection = () => {
++        const centerX = window.innerWidth / 2;
++        const centerY = window.innerHeight / 2;
++
++        // Calcular vetor do canto para o centro da tela
++        return {
++            x: centerX - x,
++            y: centerY - y
++        };
++    };
++
++    // Função mais inteligente de movimento aleatório
++    var moveRandomly = () => {
++        // Se já tivermos um alvo, continuar em direção a ele
++        if (currentPathTarget && Math.random() > MOVEMENT.DIRECTION_CHANGE_CHANCE) {
++            return moveTowards(currentPathTarget.x, currentPathTarget.y, MOVEMENT.BASE_SPEED);
++        }
++
++        // Calcular posição aleatória que não seja uma borda da tela
++        const bufferZone = 80; // Margem para não ficar muito perto da borda
++        const targetX = bufferZone + Math.random() * (window.innerWidth - 2 * bufferZone - 64);
++        const targetY = navbarHeight + bufferZone +
++            Math.random() * (window.innerHeight - navbarHeight - 2 * bufferZone - 64);
++
++        // Definir novo alvo
++        currentPathTarget = { x: targetX, y: targetY };
++        return moveTowards(targetX, targetY, MOVEMENT.BASE_SPEED);
++    };
++
++    // Movimentação com inércia para movimento mais natural
+     var moveTowards = (targetX, targetY, speed) => {
+         let dx = targetX - x;
+         let dy = targetY - y;
+         let dist = Math.sqrt(dx * dx + dy * dy);
+ 
+-        if (dist < 10) return false;
++        // Condição para chegar ao destino
++        if (dist < 5) {
++            movementInertia = { x: 0, y: 0 };
++            return false;
++        }
++
++        // Verifica se está preso
++        if (detectStuck()) {
++            const escapeVector = getEscapeDirection();
++            dx = escapeVector.x;
++            dy = escapeVector.y;
++            dist = Math.sqrt(dx * dx + dy * dy);
++            speed *= 1.5; // Aumenta velocidade para escapar
++            stuckCounter = 0; // Reset stuck counter
++        }
+ 
++        // Adicionar aleatoriedade à movimentação (tremulação natural)
++        if (Math.random() < 0.3) {
++            dx += (Math.random() - 0.5) * 10;
++            dy += (Math.random() - 0.5) * 10;
++            dist = Math.sqrt(dx * dx + dy * dy);
++        }
++
++        // Calcular movimento com inércia para suavização
+         let moveX = (dx / dist) * speed;
+         let moveY = (dy / dist) * speed;
+ 
+-        let newX = x + moveX;
+-        let newY = y + moveY;
++        // Aplicar inércia (efeito de aceleração/desaceleração)
++        movementInertia.x = movementInertia.x * 0.8 + moveX * 0.2;
++        movementInertia.y = movementInertia.y * 0.8 + moveY * 0.2;
+ 
+-        // Limites da tela com proteção para navbar
+-        if (newX < 0) newX = 0;
+-        if (newX > window.innerWidth - 64) newX = window.innerWidth - 64;
+-        if (newY < navbarHeight) newY = navbarHeight;
+-        if (newY > window.innerHeight - 64) newY = window.innerHeight - 64;
++        let newX = x + movementInertia.x;
++        let newY = y + movementInertia.y;
+ 
++        // Limites da tela com correção para não ficar preso em bordas
++        if (newX < 0) newX = 5;
++        if (newX > window.innerWidth - 64) newX = window.innerWidth - 69;
++        if (newY < navbarHeight) newY = navbarHeight + 5;
++        if (newY > window.innerHeight - 64) newY = window.innerHeight - 69;
++
++        // Determinar animação baseada na direção principal do movimento
+         let anim;
+-        if (Math.abs(moveX) > Math.abs(moveY)) {
+-            anim = moveX > 0 ? ANI.RIGHT : ANI.LEFT;
++        if (Math.abs(movementInertia.x) > Math.abs(movementInertia.y)) {
++            anim = movementInertia.x > 0 ? ANI.RIGHT : ANI.LEFT;
+         } else {
+-            anim = moveY > 0 ? ANI.DOWN : ANI.UP;
++            anim = movementInertia.y > 0 ? ANI.DOWN : ANI.UP;
+         }
+ 
++        lastDirection = { x: movementInertia.x, y: movementInertia.y };
+         x = newX;
+         y = newY;
+         ele.style.top = `${y}px`;
+@@ -220,32 +344,84 @@
+         return true;
+     };
+ 
++    // Sistema de fuga melhorado
+     var moveAway = (targetX, targetY, speed) => {
+         let dx = targetX - x;
+         let dy = targetY - y;
+         let dist = Math.sqrt(dx * dx + dy * dy);
+ 
+-        if (dist > 300) return false;
++        // Se estiver longe o suficiente, não precisa mais fugir
++        if (dist > 300) {
++            movementInertia = { x: 0, y: 0 };
++            return false;
++        }
++
++        // Verificar se está preso em um canto
++        if (detectStuck()) {
++            // Criar uma direção alternativa para sair do canto
++            if (!avoidanceDirection) {
++                // Vetores base de fuga para diferentes situações
++                const escapeVectors = [
++                    { x: 1, y: 0 },   // direita
++                    { x: -1, y: 0 },  // esquerda
++                    { x: 0, y: 1 },   // baixo
++                    { x: 0, y: -1 },  // cima
++                    { x: 1, y: 1 },   // direita-baixo
++                    { x: -1, y: 1 },  // esquerda-baixo
++                    { x: 1, y: -1 },  // direita-cima
++                    { x: -1, y: -1 }  // esquerda-cima
++                ];
++
++                // Escolher vetor de fuga
++                const randomIndex = Math.floor(Math.random() * escapeVectors.length);
++                avoidanceDirection = escapeVectors[randomIndex];
++            }
++
++            // Usar direção de fuga em vez da direção inversa ao mouse
++            dx = -avoidanceDirection.x;
++            dy = -avoidanceDirection.y;
+ 
+-        let moveX = -(dx / dist) * speed;
+-        let moveY = -(dy / dist) * speed;
++            // Após um tempo, redefinir a direção de fuga
++            if (Math.random() < 0.1) {
++                avoidanceDirection = null;
++            }
++        } else {
++            // Comportamento normal - fuga na direção oposta ao mouse
++            dx = -dx;
++            dy = -dy;
+ 
+-        let newX = x + moveX;
+-        let newY = y + moveY;
++            // Resetar direção de fuga quando não mais preso
++            avoidanceDirection = null;
++        }
+ 
+-        // Limites da tela com proteção para navbar
+-        if (newX < 0) newX = 0;
+-        if (newX > window.innerWidth - 64) newX = window.innerWidth - 64;
+-        if (newY < navbarHeight) newY = navbarHeight;
+-        if (newY > window.innerHeight - 64) newY = window.innerHeight - 64;
++        dist = Math.sqrt(dx * dx + dy * dy);
+ 
++        // Aplicar inércia para movimento mais natural
++        let moveX = (dx / dist) * speed * MOVEMENT.FLEE_SPEED_MULTIPLIER;
++        let moveY = (dy / dist) * speed * MOVEMENT.FLEE_SPEED_MULTIPLIER;
++
++        // Aplicar inércia (efeito de aceleração/desaceleração)
++        movementInertia.x = movementInertia.x * 0.7 + moveX * 0.3;
++        movementInertia.y = movementInertia.y * 0.7 + moveY * 0.3;
++
++        let newX = x + movementInertia.x;
++        let newY = y + movementInertia.y;
++
++        // Limites da tela com margem para não ficar preso
++        if (newX < 5) newX = 5;
++        if (newX > window.innerWidth - 69) newX = window.innerWidth - 69;
++        if (newY < navbarHeight + 5) newY = navbarHeight + 5;
++        if (newY > window.innerHeight - 69) newY = window.innerHeight - 69;
++
++        // Determinar animação com base na direção
+         let anim;
+-        if (Math.abs(moveX) > Math.abs(moveY)) {
+-            anim = moveX > 0 ? ANI.RIGHT : ANI.LEFT;
++        if (Math.abs(movementInertia.x) > Math.abs(movementInertia.y)) {
++            anim = movementInertia.x > 0 ? ANI.RIGHT : ANI.LEFT;
+         } else {
+-            anim = moveY > 0 ? ANI.DOWN : ANI.UP;
++            anim = movementInertia.y > 0 ? ANI.DOWN : ANI.UP;
+         }
+ 
++        lastDirection = { x: movementInertia.x, y: movementInertia.y };
+         x = newX;
+         y = newY;
+         ele.style.top = `${y}px`;
+@@ -263,10 +439,20 @@
+         const randomElement = elements[Math.floor(Math.random() * elements.length)];
+         const rect = randomElement.getBoundingClientRect();
+ 
+-        return {
+-            x: rect.left + (rect.width / 2) - 32,
+-            y: rect.top + (rect.height / 2) - 32
+-        };
++        // Verificar se o elemento é visível na tela
++        if (
++            rect.top >= 0 &&
++            rect.left >= 0 &&
++            rect.bottom <= window.innerHeight &&
++            rect.right <= window.innerWidth
++        ) {
++            return {
++                x: rect.left + (rect.width / 2) - 32,
++                y: rect.top + (rect.height / 2) - 32
++            };
++        }
++
++        return null;
+     };
+ 
+     var update = () => {
+@@ -295,18 +481,18 @@
+             } else {
+                 switch (currentMode) {
+                     case MODES.FOLLOW:
+-                        if (moveTowards(mouseX - 100, mouseY - 100, 64)) {
++                        if (moveTowards(mouseX, mouseY, MOVEMENT.BASE_SPEED * MOVEMENT.FOLLOW_SPEED_MULTIPLIER)) {
+                             moving = true;
+                         } else {
+-                            setAnim(ANI.IDEL1);
++                            setAnim(ANI.IDLE1);
+                         }
+                         break;
+ 
+                     case MODES.FLEE:
+-                        if (moveAway(mouseX, mouseY, 96)) {
++                        if (moveAway(mouseX, mouseY, MOVEMENT.BASE_SPEED)) {
+                             moving = true;
+                         } else {
+-                            setAnim(ANI.IDEL2);
++                            setAnim(ANI.IDLE2);
+                             if (modeTimer <= 0) {
+                                 changeMode(promotional ? MODES.PROMOTIONAL : MODES.RANDOM);
+                             }
+@@ -315,16 +501,16 @@
+ 
+                     case MODES.CURIOUS:
+                         const target = findRandomElement();
+-                        if (target && moveTowards(target.x, target.y, 64)) {
++                        if (target && moveTowards(target.x, target.y, MOVEMENT.BASE_SPEED * MOVEMENT.CURIOUS_SPEED_MULTIPLIER)) {
+                             moving = true;
+                         } else {
+-                            setAnim(ANI.IDEL3);
++                            setAnim(ANI.IDLE3);
+                         }
+                         break;
+ 
+                     case MODES.PROMOTIONAL:
+                         const serviceItem = findRandomElement();
+-                        if (serviceItem && moveTowards(serviceItem.x, serviceItem.y, 64)) {
++                        if (serviceItem && moveTowards(serviceItem.x, serviceItem.y, MOVEMENT.BASE_SPEED * MOVEMENT.CURIOUS_SPEED_MULTIPLIER)) {
+                             moving = true;
+ 
+                             // Chance de mostrar frase promocional quando está se movendo para um item
+@@ -332,7 +518,12 @@
+                                 showPromotionalPhrase();
+                             }
+                         } else {
+-                            setAnim(ANI.IDEL1);
++                            // Se não encontrar um elemento, move aleatoriamente
++                            if (Math.random() < 0.3 && moveRandomly()) {
++                                moving = true;
++                            } else {
++                                setAnim(ANI.IDLE1);
++                            }
+                         }
+                         break;
+ 
+@@ -345,62 +536,14 @@
+ 
+                     case MODES.RANDOM:
+                     default:
+-                        if (((Math.round(Math.random() * 100000) % 2) == 0) && (x >= 0)) {
+-                            let a = (Math.round(Math.random() * 100000) % 3);
+-                            setAnim(a);
+-                        } else if (((Math.round(Math.random() * 100000) % 8) != 0) || (x < 0)) {
+-                            let d = Math.round(Math.random() * 100000) % 4;
+-                            let sx = 0;
+-                            let sy = 0;
+-                            let a = null;
+-                            if (d == 3) {
+-                                a = ANI.UP;
+-                                sy = -64;
+-                            } else if (d == 2) {
+-                                a = ANI.DOWN;
+-                                sy = 64;
+-                            } else if (d == 1) {
+-                                a = ANI.LEFT;
+-                                sx = -64;
+-                            } else {
+-                                a = ANI.RIGHT;
+-                                sx = 64;
+-                            }
+-                            if (x <= 0) {
+-                                sx = 64;
+-                                sy = 0;
+-                                a = ANI.RIGHT;
+-                            } else if (x >= (window.innerWidth - 64)) {
+-                                sx = -64;
+-                                sy = 0;
+-                                a = ANI.LEFT;
+-                            } else if (y <= navbarHeight) {  // Proteção da área da navbar
+-                                sy = 64;
+-                                sx = 0;
+-                                a = ANI.DOWN;
+-                            } else if (y >= (window.innerHeight - 64)) {
+-                                sy = -64;
+-                                sx = 0;
+-                                a = ANI.UP;
+-                            }
+-                            x += sx;
+-                            y += sy;
+-
+-                            // Proteção adicional para navbar
+-                            if (y < navbarHeight) {
+-                                y = navbarHeight;
+-                            }
+-
+-                            moving = true;
+-                            ele.style.top = `${y}px`;
+-                            ele.style.left = `${x}px`;
+-                            setAnim(a);
+-                        } else if (!promotional) {  // Nunca dormir no modo promocional
+-                            sleep = 3;
+-                            setAnim(ANI.SLEEP);
++                        // Movimento aleatório mais natural
++                        if (Math.random() < MOVEMENT.RANDOM_MOVE_CHANCE) {
++                            if (moveRandomly()) {
++                                moving = true;
++                            }
+                         } else {
+-                            // No modo promocional, se não mover, fica parado em uma animação idle
+-                            let a = (Math.round(Math.random() * 100000) % 3);
++                            // Animações idle variadas quando parado
++                            let a = Math.floor(Math.random() * 3);
+                             setAnim(a);
+                         }
+                         break;
+@@ -419,7 +562,8 @@
+         }
+     };
+ 
+-    setInterval(update, 150);
++    // Atualizações mais frequentes para movimentos mais suaves
++    setInterval(update, 100);
+ 
+     var click = () => {
+         if (promotional) {
+@@ -449,8 +593,21 @@
+         mouseY = e.clientY;
+     };
+ 
++    // Lidar com redimensionamento da janela
++    var handleResize = () => {
++        // Garantir que o pet não fique fora da tela após redimensionamento
++        if (x < 0) x = 5;
++        if (x > window.innerWidth - 64) x = window.innerWidth - 69;
++        if (y < navbarHeight) y = navbarHeight + 5;
++        if (y > window.innerHeight - 64) y = window.innerHeight - 69;
++
++        ele.style.top = `${y}px`;
++        ele.style.left = `${x}px`;
++    };
++
+     ele.addEventListener('click', click);
+     document.addEventListener('mousemove', trackMouse);
++    window.addEventListener('resize', handleResize);
+ 
+     return ele;
+ }
+\ No newline at end of file

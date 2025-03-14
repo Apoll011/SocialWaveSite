@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Nosso Mascote Buddy</title>
+	<!-- Bootstrap CSS -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Animate.css para animações -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+	<style>
+		body {
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: linear-gradient(135deg, #7b2ff7, #f765a3);
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			overflow-x: hidden;
+			color: white;
+		}
+
+		.container {
+			position: relative;
+			z-index: 2;
+			padding: 2rem;
+		}
+
+		.title-section {
+			text-align: center;
+			margin-bottom: 2rem;
+		}
+
+		.main-title {
+			font-size: 4.5rem;
+			font-weight: 800;
+			color: white;
+			text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+			letter-spacing: -0.02em;
+		}
+
+		.mascot-card {
+			background: rgba(255, 255, 255, 0.15);
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.3);
+			border-radius: 24px;
+			padding: 2rem;
+			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+			transition: all 0.6s ease;
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+
+		.mascot-card:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
+		}
+
+		.mascot-image-container {
+			background: white;
+			border-radius: 16px;
+			padding: 1.5rem;
+			margin: 1rem auto;
+			text-align: center;
+			transition: all 0.5s ease;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+		}
+
+		.mascot-image-container:hover {
+			transform: scale(1.03);
+			box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+		}
+
+		.mascot-image {
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+		}
+
+		.image-placeholder {
+			background: linear-gradient(45deg, #f1f1f1, #e6e6e6);
+			width: 100%;
+			height: 400px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #666;
+			font-size: 1.5rem;
+			border-radius: 8px;
+		}
+
+		.description {
+			text-align: center;
+			font-size: 1.2rem;
+			margin-top: 1.5rem;
+			color: rgba(255, 255, 255, 0.9);
+		}
+
+		.circle {
+			position: absolute;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.1);
+			animation: float 10s infinite ease-in-out;
+		}
+
+		.circle-1 {
+			width: 300px;
+			height: 300px;
+			top: -100px;
+			right: -100px;
+			animation-delay: 0s;
+		}
+
+		.circle-2 {
+			width: 200px;
+			height: 200px;
+			bottom: -50px;
+			left: 10%;
+			animation-delay: 3s;
+		}
+
+		.circle-3 {
+			width: 150px;
+			height: 150px;
+			bottom: 30%;
+			right: 10%;
+			animation-delay: 6s;
+		}
+
+		@keyframes float {
+			0% { transform: translateY(0) rotate(0deg); }
+			50% { transform: translateY(-20px) rotate(5deg); }
+			100% { transform: translateY(0) rotate(0deg); }
+		}
+
+		.btn-custom {
+			background: white;
+			color: #7b2ff7;
+			font-weight: 600;
+			border-radius: 30px;
+			padding: 12px 30px;
+			margin-top: 2rem;
+			border: none;
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+			transition: all 0.3s ease;
+		}
+
+		.btn-custom:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+			background: white;
+			color: #f765a3;
+		}
+
+		@media (max-width: 768px) {
+			.main-title {
+				font-size: 3rem;
+			}
+
+			.mascot-card {
+				padding: 1.5rem;
+			}
+		}
+	</style>
+</head>
+<body>
+<!-- Círculos de fundo -->
+<div class="circle circle-1"></div>
+<div class="circle circle-2"></div>
+<div class="circle circle-3"></div>
+
+<div class="container">
+	<div class="title-section animate__animated animate__fadeInDown">
+		<h1 class="main-title">Nosso Mascote Dolphy</h1>
+	</div>
+
+	<div class="mascot-card animate__animated animate__fadeIn animate__delay-1s">
+		<div class="mascot-image-container animate__animated animate__zoomIn animate__delay-1s">
+			<div class="image-placeholder">
+				 <img src="./img/dolphy.png" alt="Buddy, nosso mascote" class="mascot-image">
+			</div>
+		</div>
+
+		<div class="description animate__animated animate__fadeInUp animate__delay-2s">
+			<p>Conheça o Dolphy, nosso adorável mascote que representa nossa marca com alegria e personalidade!</p>
+		</div>
+
+		<div class="text-center">
+			<button class="btn btn-custom animate__animated animate__fadeInUp animate__delay-3s">Saiba mais sobre o Buddy</button>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const card = document.querySelector('.mascot-card');
+		const imageContainer = document.querySelector('.mascot-image-container');
+
+		// Adiciona efeito de brilho ao passar o mouse
+		imageContainer.addEventListener('mousemove', function(e) {
+			const rect = imageContainer.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+
+			const centerX = rect.width / 2;
+			const centerY = rect.height / 2;
+
+			const angleX = (y - centerY) / 10;
+			const angleY = (centerX - x) / 10;
+
+			imageContainer.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
+		});
+
+		imageContainer.addEventListener('mouseleave', function() {
+			imageContainer.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+		});
+	});
+</script>
+</body>
+</html>
